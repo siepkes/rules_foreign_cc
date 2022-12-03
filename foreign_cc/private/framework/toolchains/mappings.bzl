@@ -33,6 +33,12 @@ TOOLCHAIN_MAPPINGS = [
     ),
     _toolchain_mapping(
         exec_compatible_with = [
+            "@platforms//os:illumos",
+        ],
+        file = Label("@rules_foreign_cc//foreign_cc/private/framework/toolchains:illumos_commands.bzl"),
+    ),
+    _toolchain_mapping(
+        exec_compatible_with = [
             "@platforms//os:windows",
         ],
         file = Label("@rules_foreign_cc//foreign_cc/private/framework/toolchains:windows_commands.bzl"),
