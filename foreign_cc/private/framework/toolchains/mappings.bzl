@@ -36,6 +36,13 @@ TOOLCHAIN_MAPPINGS = [
         file = "@rules_foreign_cc//foreign_cc/private/framework/toolchains:freebsd_commands.bzl",
     ),
     _toolchain_mapping(
+        repo_name = "rules_foreign_cc_framework_toolchain_illumos",
+        exec_compatible_with = [
+            "@platforms//os:illumos",
+        ],
+        file = "@rules_foreign_cc//foreign_cc/private/framework/toolchains:illumos_commands.bzl",
+    ),
+    _toolchain_mapping(
         repo_name = "rules_foreign_cc_framework_toolchain_windows",
         exec_compatible_with = [
             "@platforms//os:windows",

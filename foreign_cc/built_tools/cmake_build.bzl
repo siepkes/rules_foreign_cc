@@ -10,7 +10,11 @@ def cmake_tool(name, srcs, **kwargs):
         configure_command = "bootstrap",
         configure_options = ["--", "-DCMAKE_MAKE_PROGRAM=$$MAKE$$"],
         # On macOS at least -DDEBUG gets set for a fastbuild
-        copts = ["-UDEBUG"],
+        copts = select({
+            # On illumos the math library needs to be explicitly enabled when linking.
+            "@platforms//os:illumos": ["-UDEBUG","-lm"],
+            "//conditions:default": ["-UDEBUG"],
+        }),
         lib_source = srcs,
         out_binaries = select({
             "@platforms//os:windows": ["cmake.exe"],

@@ -38,6 +38,7 @@ def framework_platform_info(name = "platform_info"):
             "@platforms//os:android": "android",
             "@platforms//os:freebsd": "freebsd",
             "@platforms//os:ios": "ios",
+            "@platforms//os:illumos": "illumos",
             "@platforms//os:linux": "linux",
             "@platforms//os:macos": "macos",
             "@platforms//os:none": "none",
