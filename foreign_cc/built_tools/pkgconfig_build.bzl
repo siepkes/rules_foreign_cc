@@ -28,7 +28,9 @@ def _pkgconfig_tool_impl(ctx):
     frozen_arflags = flags_info.cxx_linker_static
 
     cc_path = tools_info.cc
-    cflags = flags_info.cc + ["-Wno-int-conversion"]  # Fix building with clang 15+
+    # This is needed when building on illumos. Otherwise the build will fail because
+    # pkgconfig gets confused by the system gettext.
+    cflags = flags_info.cc + ["-Wno-int-conversion", "-DENABLE_NLS"]  # Fix building with clang 15+
     sysroot_cflags = [flag for flag in cflags if flag.startswith("--sysroot=")]
     non_sysroot_cflags = [flag for flag in cflags if not flag.startswith("--sysroot=")]
 
@@ -63,6 +65,12 @@ def _pkgconfig_tool_impl(ctx):
     make_data = get_make_data(ctx)
 
     configure_options = [
+        "--disable-host-tool",
+        "--disable-maintainer-mode",
+        # This is needed when building on illumos. Otherwise the build will fail because
+        # pkgconfig gets confused by the system iconv:
+        # "GNU libiconv not in use but included iconv.h is from libiconv"
+        "--with-libiconv=gnu",
         "--with-internal-glib",
         "--prefix=$$INSTALLDIR$$",
     ]

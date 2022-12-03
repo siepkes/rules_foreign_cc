@@ -10,6 +10,7 @@ SUPPORTED_OS = [
     "android",
     "freebsd",
     "ios",
+    "illumos",
     "linux",
     "macos",
     "none",
